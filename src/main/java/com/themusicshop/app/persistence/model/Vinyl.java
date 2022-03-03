@@ -1,31 +1,34 @@
 package com.themusicshop.app.persistence.model;
 
 import lombok.*;
-
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
-@Table()
+@Table
 public class Vinyl {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "vinyl_sequence",
+            sequenceName = "vinyl_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "vinyl_sequence"
+    )
+    private Long id;
     private String composerName;
     private String category;
     private String musicName;
     private String album;
-
-    public Vinyl(int id, String composerName, String category, String musicName, String album) {
-        this.id = id;
-        this.composerName = composerName;
-        this.category = category;
-        this.musicName = musicName;
-        this.album = album;
-    }
+    private LocalDate entranceDate;
+    private double price;
+    private int stock;
 }
