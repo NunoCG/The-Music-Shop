@@ -40,10 +40,15 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ClientDto updateClient(@PathVariable Long id, @RequestBody(required = false) ClientDto clientDto) {
+    public ClientDto updateClient(@PathVariable("id") Long id, @RequestBody(required = false) ClientDto clientDto) {
         clientDto.setId(id);
         Client client = modelMapper.map(clientDto, Client.class);
         client = clientService.updateClient(client);
         return modelMapper.map(client, ClientDto.class);
     }
+
+    /*@PutMapping("/{id}/balance/{cash}")
+    public double depositBalance(@PathVariable("id") Long id, @PathVariable("cash") double cash) {
+        return clientService.deposit(id, cash);
+    }*/
 }
