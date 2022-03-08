@@ -1,6 +1,5 @@
 package com.themusicshop.app.business.services;
 
-import com.themusicshop.app.persistence.model.Client;
 import com.themusicshop.app.persistence.model.Vinyl;
 import com.themusicshop.app.persistence.repository.VinylRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,25 @@ public class VinylService {
             return vinylById.get();
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existe um vinyl com esse id");
+        }
+    }
+
+    public List<Vinyl> getVinylByMusicName(String musicName) {
+        List<Vinyl> vinylByMusicName = vinylRepository.findByMusicName(musicName);
+        if (!vinylByMusicName.isEmpty()) {
+            return vinylByMusicName;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Não existe um vinyl com o nome de musica introduzido");
+        }
+    }
+
+    public List<Vinyl> getVinylByAlbum(String album) {
+        List<Vinyl> vinylByAlbum = vinylRepository.findByAlbum(album);
+        if (!vinylByAlbum.isEmpty()) {
+            return vinylByAlbum;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existe um vinyl com o Album introduzido");
         }
     }
 

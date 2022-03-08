@@ -46,9 +46,4 @@ public class ClientController {
         client = clientService.updateClient(client);
         return modelMapper.map(client, ClientDto.class);
     }
-
-    /*@PutMapping("/{id}/balance/{cash}")
-    public double depositBalance(@PathVariable("id") Long id, @PathVariable("cash") double cash) {
-        return clientService.deposit(id, cash);
-    }*/
 }

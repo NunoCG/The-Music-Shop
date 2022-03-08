@@ -32,6 +32,18 @@ public class VinylController {
         return modelMapper.map(vinylService.getVinylById(id), VinylDto.class);
     }
 
+    @GetMapping()
+    @ResponseBody
+    public VinylDto getVinylByMusicName(@RequestParam(required = false) String musicName) {
+        return modelMapper.map(vinylService.getVinylByMusicName(musicName), VinylDto.class);
+    }
+
+    @GetMapping()
+    @ResponseBody
+    public VinylDto getVinylByAlbum(@RequestParam(required = false) String album) {
+        return modelMapper.map(vinylService.getVinylByAlbum(album), VinylDto.class);
+    }
+
     @PostMapping()
     public VinylDto saveVinyl(@RequestBody(required = false) VinylDto vinylDto) {
         vinylDto.setEntranceDate(LocalDate.now());
