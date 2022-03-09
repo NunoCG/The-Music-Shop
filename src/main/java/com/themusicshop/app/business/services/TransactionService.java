@@ -26,7 +26,7 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public Transaction deposit(Transaction transaction) {
+    public Transaction depositOrWithdrawal(Transaction transaction) {
         Client client = clientRepository.findById(transaction.getClientId()).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "O cliente inserido não existe"));
 
@@ -35,9 +35,24 @@ public class TransactionService {
                 transactionRepository.save(transaction);
                 double newBalance = client.getBalance() + transaction.getAmount();
                 client.setBalance(newBalance);
+                clientRepository.save(client);
             } else {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O valor do depósito tem de ser maior que 0");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "O valor do depósito tem de ser maior que 0");
             }
+        } else if (transaction.getTransactionType() == 2) {
+            if (transaction.getAmount() <= client.getBalance()) {
+                transactionRepository.save(transaction);
+                double newBalance = client.getBalance() - transaction.getAmount();
+                client.setBalance(newBalance);
+                clientRepository.save(client);
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "O valor de levantamento tem de ser menor ou igual ao saldo do cliente");
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "O tipo de transação de tem ser 1 para depósito e 2 para levantamento");
         }
 
         return transaction;

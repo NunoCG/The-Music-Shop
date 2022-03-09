@@ -23,7 +23,7 @@ public class VinylController {
     }
 
     @GetMapping()
-    public List<VinylDto> getVinyl() {
+    public List<VinylDto> getVinyls() {
         return modelMapper.map(vinylService.getVinyls(), List.class);
     }
 
@@ -32,16 +32,10 @@ public class VinylController {
         return modelMapper.map(vinylService.getVinylById(id), VinylDto.class);
     }
 
-    @GetMapping()
-    @ResponseBody
-    public VinylDto getVinylByMusicName(@RequestParam(required = false) String musicName) {
-        return modelMapper.map(vinylService.getVinylByMusicName(musicName), VinylDto.class);
-    }
-
-    @GetMapping()
-    @ResponseBody
-    public VinylDto getVinylByAlbum(@RequestParam(required = false) String album) {
-        return modelMapper.map(vinylService.getVinylByAlbum(album), VinylDto.class);
+    @GetMapping("/search")
+    public List<VinylDto> getVinylsByMusicNameOrAlbum(@RequestParam(required = false) String musicName,
+                                                      @RequestParam(required = false) String album) {
+        return modelMapper.map(vinylService.getVinylsByMusicNameOrAlbum(musicName, album), List.class);
     }
 
     @PostMapping()

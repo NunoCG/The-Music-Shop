@@ -35,23 +35,8 @@ public class VinylService {
         }
     }
 
-    public List<Vinyl> getVinylByMusicName(String musicName) {
-        List<Vinyl> vinylByMusicName = vinylRepository.findByMusicName(musicName);
-        if (!vinylByMusicName.isEmpty()) {
-            return vinylByMusicName;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Não existe um vinyl com o nome de musica introduzido");
-        }
-    }
-
-    public List<Vinyl> getVinylByAlbum(String album) {
-        List<Vinyl> vinylByAlbum = vinylRepository.findByAlbum(album);
-        if (!vinylByAlbum.isEmpty()) {
-            return vinylByAlbum;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existe um vinyl com o Album introduzido");
-        }
+    public List<Vinyl> getVinylsByMusicNameOrAlbum(String musicName, String album) {
+        return vinylRepository.findVinylsByMusicNameOrAlbum(musicName, album);
     }
 
     public Vinyl saveVinyl(Vinyl vinyl) {

@@ -76,18 +76,4 @@ public class ClientService {
 
         return client;
     }
-
-    /*public Client deposit(Client clientD, double cash) {
-       Client client = clientRepository.findById(clientD.getId()).orElseThrow(() ->
-               new ResponseStatusException(HttpStatus.NOT_FOUND,
-                       "O cliente com o id " + clientD.getId() + " não existe"));
-        if (cash > 0) {
-            double newBalance = clientD.getBalance() + cash;
-            clientD.setBalance(newBalance);
-            client.setBalance(clientD.getBalance());
-            return client;
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O depósito tem de ser maior que 0");
-        }
-    }*/
 }

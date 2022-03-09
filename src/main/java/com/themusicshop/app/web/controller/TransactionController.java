@@ -26,10 +26,10 @@ public class TransactionController {
         return modelMapper.map(transactionService.getTransactions(), List.class);
     }
 
-    @PutMapping()
+    @PostMapping()
     public TransactionDto saveTransaction(@RequestBody TransactionDto transactionDto) {
         Transaction transaction = modelMapper.map(transactionDto, Transaction.class);
-        transaction = transactionService.deposit(transaction);
+        transaction = transactionService.depositOrWithdrawal(transaction);
         return modelMapper.map(transaction, TransactionDto.class);
     }
 }
