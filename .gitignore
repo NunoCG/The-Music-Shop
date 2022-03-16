@@ -1,4 +1,6 @@
-HELP.md
+app/HELP.md
+msgqueue/HELP.md
+rental/HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

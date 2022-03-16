@@ -11,6 +11,8 @@ public class RentalDto {
 
     private Long id;
     private Long vinylId;
+    private Long clientId;
     private LocalDate startDate;
     private Date endDate;
+    private double price;
 }

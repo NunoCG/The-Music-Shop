@@ -1,0 +1,54 @@
+version: '3.9'
+services:
+  app:
+    image: app-springboot
+    build: app
+    ports:
+      - "8080:8080"
+    environment:
+      - POSTGRES_URL=postgresql://postgresqldb:5432
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=123456
+    depends_on:
+      - postgresqldb
+      - activemq
+  rental-app:
+    image: rental-app-spring
+    build: rental
+    ports:
+      - "8081:8080"
+    environment:
+      - POSTGRES_URL=postgresql://postgresqldb:5432
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=123456
+    depends_on:
+      - postgresqldb
+      - activemq
+  msgqueue-app:
+    image: msgqueue-discount-app-spring
+    build: msgqueue
+    ports:
+      - "8082:8080"
+    environment:
+      - POSTGRES_URL=postgresql://postgresqldb:5432
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=123456
+    depends_on:
+      - postgresqldb
+      - activemq
+  activemq:
+    image: rmohr/activemq
+    ports:
+      - "61616:61616" # Broker
+      - "8161:8161" # Web
+    restart: always
+    depends_on:
+      - postgresqldb
+  postgresqldb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=themusicstore
