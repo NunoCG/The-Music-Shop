@@ -16,5 +16,6 @@ This project has 5 services running individually in 5 seperate Docker containers
 
 **To run this project you just need to compose the docker-compose.yml file on the root of the project:**
 
+  ```yml
   docker compose --build -d
-  
+  ```
