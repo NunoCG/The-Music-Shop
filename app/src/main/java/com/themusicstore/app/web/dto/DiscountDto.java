@@ -1,4 +1,4 @@
-package com.themusicstore.rental.web.dto;
+package com.themusicstore.app.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
